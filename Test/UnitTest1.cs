@@ -1,21 +1,24 @@
-Ôªøusing System;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using kp_refactoring;
 using System.IO;
 
-
-/* 
- * –ó–∞–º–µ–Ω–∞ –ø–∞—Ä–∞–º–µ—Ç—Ä–∞ –≤—ã–∑–æ–≤–æ–º –º–µ—Ç–æ–¥–∞ (Replace Parameter with Method)
- * 19-–ó–ö–ë—Å-–ü–†1
- * –®–∞—Ä–∞–Ω–≥–∏—è –ò–≥–æ—Ä—å
- */
-namespace kp_refactoring
+namespace Test
 {
-    class Program
+    public class Tests
     {
-        static void Main(string[] args)
+        [SetUp]
+        public void Setup()
+        {
+        }
+
+        [Test]
+        public void Test1()
         {
             string filename = "BillInfo.yaml";
-            if (args.Length == 1)
-                filename = args[0];
+
             FileStream fs = new FileStream(filename, FileMode.Open);
             StreamReader sr = new StreamReader(fs);
             // read customer
@@ -35,8 +38,8 @@ namespace kp_refactoring
             Goods[] g = new Goods[goodsQty];
             for (int i = 0; i < g.Length; i++)
             {
-                // –ü—Ä–æ–ø—É—Å—Ç–∏—Ç—å –∫–æ–º–º–µ–Ω—Ç–∞—Ä–∏–∏             
-            do
+                // œÓÔÛÒÚËÚ¸ ÍÓÏÏÂÌÚ‡ËË             
+                do
                 {
                     line = sr.ReadLine();
                 } while (line.StartsWith("#"));
@@ -59,7 +62,7 @@ namespace kp_refactoring
                 g[i] = new Goods(result[0], t);
             }
             // read items count
-            // –ü—Ä–æ–ø—É—Å—Ç–∏—Ç—å –∫–æ–º–º–µ–Ω—Ç–∞—Ä–∏–∏
+            // œÓÔÛÒÚËÚ¸ ÍÓÏÏÂÌÚ‡ËË
             do
             {
                 line = sr.ReadLine();
@@ -68,7 +71,7 @@ namespace kp_refactoring
             int itemsQty = Convert.ToInt32(result[1].Trim());
             for (int i = 0; i < itemsQty; i++)
             {
-                // –ü—Ä–æ–ø—É—Å—Ç–∏—Ç—å –∫–æ–º–º–µ–Ω—Ç–∞—Ä–∏–∏
+                // œÓÔÛÒÚËÚ¸ ÍÓÏÏÂÌÚ‡ËË
                 do
                 {
                     line = sr.ReadLine();
@@ -81,7 +84,10 @@ namespace kp_refactoring
                 b.addGoods(new Item(g[gid - 1], qty, price));
             }
             string bill = b.statement();
-            Console.WriteLine(bill);
+            if (b._result == 546.25)
+                Assert.Pass();
+            else
+                Assert.Fail();
         }
     }
 }
