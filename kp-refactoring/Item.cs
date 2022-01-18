@@ -30,24 +30,25 @@ namespace kp_refactoring
 
         public double GetPrice()
         {
-          
-            int basePrice = Convert.ToInt32(_quantity * _price);
-            int discountLevel;
-          
-            if (_quantity > 100)
-                discountLevel = 2;
-            else
-                discountLevel = 1;
-
-            double finalPrice = DiscountedPrice(basePrice, discountLevel); 
-            return basePrice - finalPrice;
+            return DiscountedPrice();
         }
-        private double DiscountedPrice(int basePrice, int discountLevel)
+        private double DiscountedPrice()
         {
-            if (discountLevel == 2)
-                return basePrice * 0.1;
+            if (GetDiscountLevel() == 2)
+                return GetBasePrice() - GetBasePrice() * 0.1;
             else
-                return basePrice * 0.05;
+                return GetBasePrice() - GetBasePrice() * 0.05;
+        }
+        private int GetDiscountLevel()
+        {
+            if (_quantity > 100)
+                return 2;
+            else
+                return 1;
+        }
+        private double GetBasePrice()
+        {
+            return _quantity * _price;
         }
     }
 }
