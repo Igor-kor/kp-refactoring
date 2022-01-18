@@ -27,5 +27,27 @@ namespace kp_refactoring
         {
             return _Goods;
         }
+
+        public double GetPrice()
+        {
+          
+            int basePrice = Convert.ToInt32(_quantity * _price);
+            int discountLevel;
+          
+            if (_quantity > 100)
+                discountLevel = 2;
+            else
+                discountLevel = 1;
+
+            double finalPrice = DiscountedPrice(basePrice, discountLevel); 
+            return basePrice - finalPrice;
+        }
+        private double DiscountedPrice(int basePrice, int discountLevel)
+        {
+            if (discountLevel == 2)
+                return basePrice * 0.1;
+            else
+                return basePrice * 0.05;
+        }
     }
 }
